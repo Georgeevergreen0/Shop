@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- lib dependancies-->
+    <!-- <link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/assets/css/font.min.css">
+    <link rel="stylesheet" href="/public/assets/js/scrollreveal.min.js"> -->
+    <link rel="stylesheet" href="/public/assets/css/starability.css">
+    <!-- main css-->
+    <link rel="stylesheet" href="/public/assets/css/main.css">
+    <title><%= title %></title>
+</head>
+
+<body id="body">
+    <div class="logo-img"><img src="/public/images/logo.png" alt="" srcset=""></div>
+
+    <!-- heading -->
+    <header id="header">
+        <div class="logo">
+            <a href="/">
+                <span>
+                    N&omacr;1 Shop In Nigeria
+                </span>
+            </a>
+        </div>
+        <div class="header-tab">
+
+            <div class="dropdown">
+                <div class="dropbtn">Woman</div>
+                <div class="dropdown-content">
+                    <a href="#">Best Seller</a>
+                    <a href="#">Top Seller</a>
+                    <a href="#">Bags</a>
+                    <a href="#">Underwears</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div class="dropbtn">Men</div>
+                <div class="dropdown-content">
+                    <a href="#">Best Seller</a>
+                    <a href="#">Top Seller</a>
+                    <a href="#">Ties and Hats</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropbtn">Posts</div>
+                <div class="dropdown-content">
+                    <a href="/posts">View all post</a>
+                    <a href="/posts/new">Create post</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="dropbtn">Profile</div>
+                <div class="dropdown-content">
+                    <a href="#">View Profile</a>
+                    <a href="/users/login">Login</a>
+                    <a href="/users/register">Sign up</a>
+                    <a href="/users/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+        <a style="display: none" href="#menu">Menu &equiv;</a>
+    </header>
+
+    <!-- flash messages -->
+    <div class="flash-message">
+        <% if (success) { %>
+        <p class="success">
+            <%= success %>
+        </p>
+        <%};%>
+
+        <% if(error) {%>
+        <p class="error">
+            <%= error %>
+        </p>
+        <%};%>
+    </div>
+
+    <!-- Nav slider -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/"> Home</a></li>
+            <li><a href="/posts">View all posts</a></li>
+            <li><a href="/posts/new">Create new post</a></li>
+            <li><a href="/"> Register</a></li>
+            <li><a href="/"> Login</a></li>
+            <li><a href="/"> Profile</a></li>
+        </ul>
+    </nav>

@@ -1,0 +1,80 @@
+<% include ../partials/header.ejs %>
+
+<div>
+    <h2>Edit Post</h2>
+    <p id="notification"></p>
+    <form action="/posts/<%=post.id%>?_method=PUT" id="postEditForm" method="POST" enctype="multipart/form-data">
+
+        <!-- imgages -->
+        <div>
+            <%post.images.forEach(function(image, index){%>
+            <img src="/uploads/<%=image %>" alt="image" />
+            <label for="image<%=index %>"> Delete</label>
+            <input type="checkbox" id="image<%=index%>" name="deleteImage[]" class="imageDeleteCheckbox"
+                value="<%=image%>">
+            <%})%>
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<%= post.title%>" placeholder="Title" required />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" value="<%= post.price%>" placeholder="Price" required />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="imageUpload">Upload Photo: </label>
+            <input type="file" id="imageUpload" name="images" accept="image/*" multiple />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="description"></label>
+            <textarea name="description" id="description" placeholder="Description" rows="6"
+                required><%= post.description%></textarea>
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="location">location:</label>
+            <input type="text" id="location" name="location" value="<%= post.location%>" placeholder="Location"
+                required />
+        </div>
+        <!-- Break -->
+        <div>
+            <input type="submit" value="POST" />
+            <input type="reset" value="Reset" />
+        </div>
+
+    </form>
+</div>
+
+<script>
+    //find post edit form
+    let postEditForm = document.querySelector("#postEditForm");
+
+    postEditForm.addEventListener("submit", function (event) {
+        //length of existing images of uploaded images
+        let image = document.querySelectorAll(".imageDeleteCheckbox");
+        let imageLength = image.length;
+
+        //length of existing images that is checked for deletion
+        let imageChecked = document.querySelectorAll(".imageDeleteCheckbox:checked");
+        let imageCheckedLength = imageChecked.length;
+
+        //lenght of uploaded images
+        let upload = document.querySelector("#imageUpload");
+        let uploadLenght = upload.files.length;
+
+        //check if the form can be submited
+        let total = imageLength - imageCheckedLength + uploadLenght;
+
+        if (total > 4) {
+            event.preventDefault();
+            document.querySelector("#notification").textContent =
+                `You need to remove atleast ${total - 4} images to be able to upload`;
+        }
+    });
+</script>
+<% include ../partials/footer.ejs %>

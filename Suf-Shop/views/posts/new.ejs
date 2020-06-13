@@ -1,0 +1,41 @@
+<% include ../partials/header.ejs %>
+
+<div>
+    <h2 class="my-heading">New Post</h2>
+    <form action="/posts/" method="POST" enctype="multipart/form-data">
+
+        <!-- Break -->
+        <div>
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title" value="" placeholder="Title" required />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="price">Price: </label>
+            <input type="text" id="price" name="price" value="" placeholder="Price" required />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="images">Upload Photo</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required />
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="description">Description: </label>
+            <textarea name="description" id="description" placeholder="Discribe your product" required></textarea>
+        </div>
+        <!-- Break -->
+        <div>
+            <label for="Location">Location: </label>
+            <input type="text" id="location" name="location" placeholder="Location" required />
+        </div>
+        <!-- Break -->
+        <div>
+            <input type="submit" value="POST" />
+            <input type="reset" value="Reset" />
+        </div>
+
+    </form>
+</div>
+
+<% include ../partials/footer.ejs %>

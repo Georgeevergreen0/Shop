@@ -1,0 +1,33 @@
+<% include ../partials/header.ejs %>
+
+<% posts.forEach((post) => { %>
+<div>
+
+    <h3><%= post.title %></h3>
+    <p>Created: <%= post.date.toDateString() %></p>
+
+
+    <p>Price: <%= post.price %></p>
+    <p>Location: <%= post.location %></p>
+
+    <div class="flex-thumbnail">
+        <%post.images.forEach(function(image){%>
+        <div class="thumbnail">
+            <img src="/uploads/<%= image %>" alt="image" />
+        </div>
+        <%})%>
+    </div>
+
+
+    <p><%=  post.description %></p>
+
+
+    <a href="/posts/<%= post.id %>"> View More</a>
+
+</div>
+
+
+
+<% });%>
+
+<% include ../partials/footer.ejs %>

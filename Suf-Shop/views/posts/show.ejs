@@ -1,0 +1,115 @@
+<% include ../partials/header.ejs %>
+
+
+<section id="post-show">
+    <h3>POST DETAIL</h3>
+
+    <div class="post-show-image">
+        <%post.images.forEach(function(image){%>
+        <div class="thumbnail">
+            <img src="/uploads/<%= image %>" alt="image" />
+        </div>
+        <%})%>
+    </div>
+
+
+    <h3><%= post.title %></h3>
+    <p>Created: <%= post.date.toDateString() %></p>
+    <p>Price: <%= post.price %></p>
+    <p>Location: <%= post.location %></p>
+
+
+
+    <p><%=  post.description %></p>
+
+    <div>
+        <a class="btn-green" href="/posts/<%= post._id %>/edit"> Edit post</a>
+    </div>
+
+    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <input class="btn-red" type="submit" value="Delete post" />
+    </form>
+
+    <h3>
+        Reviews
+
+    </h3>
+
+
+    <%post.reviews.forEach(function(review, index){%> <div>
+        <p><b>Created: </b> <%= review.date.toUTCString() %></p>
+        <p><b>Rating: </b> <% for (let i = 0; i < Number(review.rating); i++){%> <span>&starf;</span> <%}%></p>
+            <p><b>Name: </b> <%= review.author.name %> </p>
+        <p><b>review: </b> <%= review.review %></p>
+        <%if ( user  == review.author._id ){%>
+        <button onclick="toggleForm( event,'form-<%=index%>')" class="btn-pink edit">edit</button>
+        <form action="/posts/<%=post._id%>/reviews/<%=review._id%>?_method=Delete" method="POST">
+            <input class="btn-red" type="submit" value="delete">
+        </form>
+        <div class="edit-review" id="form-<%=index%>">
+            <form action="/posts/<%=post._id%>/reviews/<%=review._id%>?_method=PUT" method="POST">
+                <fieldset class="starability-basic">
+                    <legend>Rating: </legend>
+                    <input type="radio" id="edit-rate0" class="input-no-rate" name="rating" value="0"
+                        aria-label="No rating." />
+                    <input type="radio" id="edit-rate1" name="rating" value="1" />
+                    <label for="edit-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="edit-rate2" name="rating" value="2" />
+                    <label for="edit-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="edit-rate3" name="rating" value="3" />
+                    <label for="edit-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="edit-rate4" name="rating" value="4" />
+                    <label for="edit-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="edit-rate5" name="rating" value="5" />
+                    <label for="edit-rate5" title="Amazing">5 stars</label>
+                </fieldset>
+                <textarea name="review"><%= review.review %></textarea>
+                <input class="btn-green" type="submit" value="update" required>
+            </form>
+            <script>
+                document.querySelector("#edit-rate<%=review.rating%>").setAttribute("checked", "true")
+            </script>
+        </div>
+        <%}%>
+        </div>
+    <%})%>
+
+        <div>
+            <h2>Create Review</h2>
+            <form action="/posts/<%=post._id%>/reviews" method="POST">
+                <fieldset class="starability-basic">
+                    <legend>Rating: </legend>
+                    <input type="radio" id="rate0" class="input-no-rate" name="rating" value="0" checked
+                        aria-label="No rating." />
+                    <input type="radio" id="rate1" name="rating" value="1" />
+                    <label for="rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="rate2" name="rating" value="2" />
+                    <label for="rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="rate3" name="rating" value="3" />
+                    <label for="rate3" title="Average">3 stars</label>
+                    <input type="radio" id="rate4" name="rating" value="4" />
+                    <label for="rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="rate5" name="rating" value="5" />
+                    <label for="rate5" title="Amazing">5 stars</label>
+                </fieldset>
+                <textarea name="review" id=""></textarea>
+                <input class="btn-green" type="submit" value="submit" required>
+            </form>
+        </div>
+
+</section>
+
+<script>
+    function toggleForm(event, x) {
+        let edit_review = document.querySelector(`#${x}`);
+        edit_review.classList.toggle("edit-review");
+
+        if (event.target.textContent === "edit") {
+            event.target.textContent = "hide";
+        } else {
+            event.target.textContent = "edit";
+        }
+    }
+</script>
+
+<% include ../partials/footer.ejs %>
